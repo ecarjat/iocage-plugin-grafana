@@ -42,10 +42,17 @@ echo "Creating missing directorys"
 mkdir -p /var/db/grafana/provisioning/datasources 
 mkdir -p /var/db/grafana/provisioning/notifiers
 mkdir -p /var/db/grafana/provisioning/dashboards
+#install plugins
+grafana-cli plugins install grafana-worldmap-panel
+grafana-cli plugins install savantly-heatmap-panel
+grafana-cli plugins install grafana-piechart-panel
+grafana-cli plugins install grafana-clock-panel
+
 echo -n "Restarting Grafana..."
 service grafana restart > /dev/null
 while [ "$(curl -I -s -o /dev/null -w 200 'http://localhost:3000/api/health')" != "200" ]; do sleep 1; done
 echo " done"
+
 
 
 # Save data
